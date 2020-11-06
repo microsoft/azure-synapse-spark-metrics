@@ -1,0 +1,120 @@
+# Default values for synapse-prometheus-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+## Provide a name in place of synapse-prometheus-operator for `app:` labels
+##
+nameOverride: ""
+
+## Provide a name to substitute for the full names of resources
+##
+fullnameOverride: ""
+
+## Provide Synapse workspaces config
+##
+synapse:
+  workspaces: []
+    # - workspace_name: <workspace_name>
+    #   tenant_id: <synapse_workspace_tenant_id>
+    #   service_principal_name: <service_principal_app_id>
+    #   service_principal_password: "<service_principal_password>"
+
+  defaultDashboards:
+    enabled: true
+
+## Prometheus Operator
+##
+# https://github.com/helm/charts/blob/master/stable/prometheus-operator/values.yaml
+prometheus-operator:
+  nameOverride: ""
+  fullnameOverride: ""
+
+  # Disable master node monitoring in managed AKS cluster.
+  defaultRules:
+    rules:
+      etcd: false
+      kubeScheduler: false
+  kubeApiServer:
+    enabled: false
+
+  prometheus:
+    enabled: true
+    service:
+      type: ClusterIP
+
+    prometheusSpec:
+      replicas: 1
+      retention: 15d
+
+      # resources: {}
+
+      ## Prometheus StorageSpec for persistent data
+      ## ref: https://github.com/coreos/prometheus-operator/blob/master/Documentation/user-guides/storage.md
+      ##
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: default
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 512Gi
+
+      ## Synapse Connector
+      volumes:
+        - name: synapse-connector-out
+          emptyDir: {}
+        - name: azurecli-config
+          emptyDir: {}
+        - name: synapse-connector-config
+          secret:
+            secretName: synapse-connector-config
+        - name: synapse-connector-tmp
+          emptyDir: {}
+      volumeMounts:
+        - name: synapse-connector-out
+          mountPath: "/app/synapse_connector/output"
+
+      containers:
+      - name: synapse-prometheus-connector
+        image: mcr.microsoft.com/azuresynapse/synapse-prometheus-connector:0.0.23
+        volumeMounts:
+          - name: synapse-connector-out
+            mountPath: "/app/synapse_connector/output"
+          - name: azurecli-config
+            mountPath: "/app/azurecli"
+          - name: synapse-connector-config
+            mountPath: "/app/synapse_connector/config"
+          - name: synapse-connector-tmp
+            mountPath: "/tmp"
+        ports:
+          - containerPort: 8000
+            name: http
+        env:
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+
+      additionalScrapeConfigsSecret:
+        enabled: true
+        name: synapse-application-discovery-config
+        key: synapse_scrape_config.yaml
+
+
+  # https://github.com/helm/charts/blob/master/stable/grafana/values.yaml
+  grafana:
+    enabled: true
+    adminUser: admin
+    adminPassword: ""
+
+    service:
+      type: LoadBalancer
+
+    persistence:
+      enabled: true
+      type: pvc
+      storageClassName: default
+      accessModes:
+        - ReadWriteOnce
+      size: 10Gi

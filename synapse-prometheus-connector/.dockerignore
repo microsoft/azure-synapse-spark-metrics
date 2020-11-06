@@ -1,0 +1,5 @@
+*/.vscode/
+*/__pycache__/
+src/output/
+src/tests/
+src/config/config.yaml

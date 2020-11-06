@@ -1,0 +1,16 @@
+{{- if .Values.synapse.defaultDashboards.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  namespace: {{ template "synapse-prometheus-operator.namespace" . }}
+  name: {{ printf "%s-%s" (include "synapse-prometheus-operator.fullname" $) "synapse-dashboards" | trunc 63 | trimSuffix "-" }}
+  annotations:
+{{ toYaml .Values.grafana.sidecar.dashboards.annotations | indent 4 }}
+  labels:
+    {{- if $.Values.grafana.sidecar.dashboards.label }}
+    {{ $.Values.grafana.sidecar.dashboards.label }}: "1"
+    {{- end }}
+{{ include "synapse-prometheus-operator.labels" . | indent 4 }}
+data:
+{{ (.Files.Glob "grafana_dashboards/*").AsConfig | indent 2 }}
+{{- end }}

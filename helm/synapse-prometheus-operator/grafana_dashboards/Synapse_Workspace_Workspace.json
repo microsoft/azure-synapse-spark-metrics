@@ -1,0 +1,749 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "iteration": 1599188952473,
+  "links": [
+    {
+      "$$hashKey": "object:54",
+      "icon": "external link",
+      "tags": [],
+      "targetBlank": true,
+      "title": "Go to Azure Synapse Studio",
+      "tooltip": "",
+      "type": "link",
+      "url": "https://web.azuresynapse.net/monitoring/sparkapplication?workspace=%2Fsubscriptions%2F${subscription_id}%2FresourceGroups%2F${resource_group}%2Fproviders%2FMicrosoft.Synapse%2Fworkspaces%2F${WORKSPACE}"
+    }
+  ],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 31,
+      "panels": [],
+      "title": "Header",
+      "type": "row"
+    },
+    {
+      "datasource": "$Datasource",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 10
+              },
+              {
+                "color": "red",
+                "value": 20
+              }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 1
+      },
+      "id": 39,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "last"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "expr": "count(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}) by (application_id)",
+          "format": "time_series",
+          "interval": "",
+          "legendFormat": "app={{application_name}} executor={{executor_id}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current Application Count",
+      "type": "stat"
+    },
+    {
+      "datasource": "$Datasource",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "decimals": 0,
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 1
+      },
+      "id": 24,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        }
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "expr": "sum(spark_executor_memoryUsed_bytes{workspace_name=\"$WORKSPACE\"})",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current Total Memory Usage",
+      "transformations": [],
+      "type": "stat"
+    },
+    {
+      "datasource": "$Datasource",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 100
+              },
+              {
+                "color": "red",
+                "value": 160
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 1
+      },
+      "id": 26,
+      "options": {
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "max"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showThresholdLabels": false,
+        "showThresholdMarkers": true
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "expr": "max(sum(spark_executor_totalCores{workspace_name=\"$WORKSPACE\"}))",
+          "interval": "",
+          "legendFormat": "app={{application_name}} executor={{executor_id}}",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Current Total Cores",
+      "type": "gauge"
+    },
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 6
+      },
+      "id": 33,
+      "panels": [],
+      "title": "Spark Pools",
+      "type": "row"
+    },
+    {
+      "datasource": "$Datasource",
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null,
+            "displayMode": "auto"
+          },
+          "links": [],
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Spark pool"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Drill into Spark pool",
+                    "url": "/d/M2V_vnHMk/synapse-workspace-sparkpools?var-workspace_name=${WORKSPACE}&var-spark_pool_name=${__data.fields[spark_pool_name]}&${__url_time_range}"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Link"
+            },
+            "properties": [
+              {
+                "id": "links",
+                "value": [
+                  {
+                    "targetBlank": true,
+                    "title": "Go to Synapse Studio",
+                    "url": "https://web.azuresynapse.net/management/apachesparkpools?workspace=%2Fsubscriptions%2F${subscription_id}%2FresourceGroups%2F${resource_group}%2Fproviders%2FMicrosoft.Synapse%2Fworkspaces%2F${WORKSPACE}"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 7,
+        "x": 0,
+        "y": 7
+      },
+      "id": 34,
+      "links": [],
+      "options": {
+        "frameIndex": 0,
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "expr": "label_replace(\nmax_over_time(\n   max(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}) by (workspace_name, spark_pool_name)\n   [$__range:2m]\r)\n   ,\"info\", \"Manage\", \"\", \"\")",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        },
+        {
+          "expr": "count(\n  max(spark_executor_totalDuration_seconds_total{workspace_name=\"$WORKSPACE\"}) by (spark_pool_name, application_id)\n) by (spark_pool_name)",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "B"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Active Spark pools",
+      "transformations": [
+        {
+          "id": "filterFieldsByName",
+          "options": {
+            "include": {
+              "names": [
+                "info",
+                "resource_group",
+                "spark_pool_name",
+                "subscription_id",
+                "workspace_name",
+                "Value #A"
+              ]
+            }
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Value #A": true,
+              "resource_group": true,
+              "subscription_id": true,
+              "workspace_name": true
+            },
+            "indexByName": {
+              "Value #A": 4,
+              "info": 5,
+              "resource_group": 0,
+              "spark_pool_name": 1,
+              "subscription_id": 3,
+              "workspace_name": 2
+            },
+            "renameByName": {
+              "Value #A": "Applications",
+              "info": "Link",
+              "spark_pool_name": "Spark pool"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "aliasColors": {},
+      "bars": true,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": "$Datasource",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {},
+          "mappings": [],
+          "thresholds": {
+            "mode": "percentage",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "#EAB839",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "ms"
+        },
+        "overrides": []
+      },
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 17,
+        "x": 7,
+        "y": 7
+      },
+      "hiddenSeries": false,
+      "id": 41,
+      "legend": {
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
+        "show": true,
+        "total": false,
+        "values": false
+      },
+      "lines": false,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pluginVersion": "7.0.3",
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": true,
+      "targets": [
+        {
+          "expr": "sum(spark_executor_totalCores{workspace_name=\"$WORKSPACE\"}) by (workspace_name)",
+          "format": "time_series",
+          "instant": false,
+          "interval": "",
+          "intervalFactor": 10,
+          "legendFormat": "Total Cores",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "Total Running CPU Cores",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": false
+            },
+            "indexByName": {},
+            "renameByName": {
+              "Value": "",
+              "application_id": "",
+              "{application_id=\"application_1596581849279_0001\"}": "{{$application_id}}"
+            }
+          }
+        }
+      ],
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "$$hashKey": "object:1361",
+          "decimals": 0,
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": "0",
+          "show": true
+        },
+        {
+          "$$hashKey": "object:1362",
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": false
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "align": null
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "provisioning_state"
+            },
+            "properties": []
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 43,
+      "options": {
+        "showHeader": true
+      },
+      "pluginVersion": "7.0.3",
+      "targets": [
+        {
+          "expr": "synapse_connector_spark_pool_info{workspace_name=\"$WORKSPACE\"}",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "A"
+        }
+      ],
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "Spark Pools",
+      "transformations": [
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {
+              "Time": true,
+              "Value": true,
+              "__name__": true,
+              "instance": true,
+              "job": true,
+              "workspace_name": true
+            },
+            "indexByName": {
+              "Time": 0,
+              "Value": 14,
+              "__name__": 1,
+              "auto_scale_enabled": 13,
+              "instance": 2,
+              "job": 3,
+              "location": 6,
+              "node_count": 7,
+              "node_cpu_cores": 9,
+              "node_memory_size": 10,
+              "node_size": 8,
+              "provisioning_state": 12,
+              "spark_pool_name": 5,
+              "spark_version": 11,
+              "workspace_name": 4
+            },
+            "renameByName": {
+              "auto_scale_enabled": "AutoScale",
+              "instance": "",
+              "job": "",
+              "location": "Location",
+              "node_count": "Node Count",
+              "node_cpu_cores": "CPU",
+              "node_memory_size": "Memory",
+              "node_size": "Node Size",
+              "provisioning_state": "Provisioning State",
+              "spark_pool_name": "Spark pool",
+              "spark_version": "Spark Version"
+            }
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 25,
+  "style": "dark",
+  "tags": [
+    "Synapse",
+    "Spark"
+  ],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "selected": false,
+          "text": "Prometheus",
+          "value": "Prometheus"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "Datasource",
+        "options": [],
+        "query": "prometheus",
+        "queryValue": "",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "",
+          "value": ""
+        },
+        "datasource": "$Datasource",
+        "definition": "label_values(synapse_connector_spark_pool_info, workspace_name)",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Workspace",
+        "multi": false,
+        "name": "WORKSPACE",
+        "options": [],
+        "query": "label_values(synapse_connector_spark_pool_info, workspace_name)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "$Datasource",
+        "definition": "label_values(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}, subscription_id)",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "subscription_id",
+        "options": [],
+        "query": "label_values(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}, subscription_id)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "selected": false,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "$Datasource",
+        "definition": "label_values(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}, resource_group)",
+        "hide": 2,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "resource_group",
+        "options": [],
+        "query": "label_values(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}, resource_group)",
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-30m",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "Synapse Workspace / Workspace",
+  "uid": "Ip-vTJIGz",
+  "version": 1
+}

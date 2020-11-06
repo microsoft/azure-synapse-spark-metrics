@@ -1,3 +1,101 @@
+# Synapse Prometheus Operator
+
+## Introduction
+
+Synapse Spark metrics monitoring solution.
+
+## Prerequisites
+
+1. Kubernetes 1.10+
+2. [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+3. [Helm 3.30+](https://github.com/helm/helm/releases)
+4. [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+
+Or just use the out-of-box [Azure Cloud Shell](https://shell.azure.com/), which includes all above tools.
+
+## Getting Started
+
+1. Create a Azure Kubernetes (1.16+, or use Minikube instead)
+
+    ```bash
+    az login
+    az account set --subscription "<subscription_id>"
+    az aks create --name <kubernetes_cluster_name> --resource-group <kubernetes_cluster_rg> --location eastus --node-vm-size Standard_D2s_v3
+    az aks get-credentials --name <kubernetes_cluster_name> --resource-group <kubernetes_cluster_rg>
+    ```
+
+2. Create a service principal and grant permission to synapse workspace
+
+    ```bash
+    az ad sp create-for-rbac --name <service_principal_name>
+    ```
+    
+    Get the service princial object id by `"appId"` as following command.
+
+    ```bash
+    az ad sp show --query objectId --id <service_principal_app_id>
+    ```
+
+    And then, grant permission by Synapse Studio (take a few minutes to take effect)
+
+    ```
+    Click Manage (Left Sidebar) -> Access Control -> Add -> Role=Apache Spark admin, User=service principal objectId
+     -> Select User -> Apply
+    ```
+
+3. Install Synapse Prometheus Operator
+
+    Add synapse-prometheus-operator repo to Helm client
+
+    ```bash
+    helm repo add synapse-charts https://synapsehelm.blob.core.windows.net/charts
+    ```
+
+    Install by Helm client:
+
+    ```bash
+    helm install spo synapse-charts/synapse-prometheus-operator --create-namespace --namespace spo \
+        --set synapse.workspaces[0].workspace_name="<workspace_name>" \
+        --set synapse.workspaces[0].tenant_id="<tenant_id>" \
+        --set synapse.workspaces[0].service_principal_name="<service_principal_app_id>" \
+        --set synapse.workspaces[0].service_principal_password="<service_principal_password>" \
+        --set synapse.workspaces[0].subscription_id="<subscription_id>" \
+        --set synapse.workspaces[0].resource_group="<workspace_resource_group_name>"
+    ```
+
+     - workspace_name: Synapse workspace name.
+     - subscription_id: Synapse workspace subscription id.
+     - workspace_resource_group_name:  Synapse workspace resource group name.
+     - tenant_id: Synapse workspace tenant id.
+     - service_principal_name: The service principal name (or known as "appId")
+     - service_principal_password: The service principal password you just created.
+
+4. Open Grafana and enjoy!
+
+    ```bash
+    # Get password
+    kubectl get secret --namespace spo spo-grafana -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+    # Get service ip, copy & paste the external ip to browser, and login with username 'admin' and the password.
+    kubectl -n spo get svc spo-grafana
+    ```
+
+    Find Synapse Dashboard on the upper left corner of the Grafana page (Home -> Synapse Workspace / Synapse Application),
+    try to run a example code in Synapse Studio notebook and wait a few seconds for the metrics pulling.
+
+## Uninstall
+
+Remove the operators.
+
+```bash
+# helm delete <release> -n <namespace>
+helm delete spo -n spo
+```
+
+Remove the Kubernetes cluster.
+
+```bash
+az aks delete --name <kubernetes_cluster_name> --resource-group <kubernetes_cluster_rg>
+```
 
 # Contributing
 

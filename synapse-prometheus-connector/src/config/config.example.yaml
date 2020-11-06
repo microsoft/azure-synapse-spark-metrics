@@ -1,0 +1,12 @@
+
+workspaces:
+  - workspace_name: <YOUR_WORKSPACE_NAME>
+    synapse_host_template: "{workspace_name}.dev.azuresynapse.net"
+    tenant_id: <tenant-id>
+    service_principal_name: <service_principal_app_id>
+    service_principal_password: "<service_principal_password>"
+    synapse_api_version: 2019-11-01-preview
+    resource_uri: https://dev.azuresynapse.net
+    service_discovery_output_folder: output/workspace_<YOUR_WORKSPACE_NAME>/
+    token_refresh_interval_sec: 3600
+    spark_application_discovery_interval_sec: 30

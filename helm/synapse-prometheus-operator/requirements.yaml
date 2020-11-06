@@ -1,0 +1,9 @@
+dependencies:
+  - name: prometheus-operator
+    version: "9.3.*"
+    repository: https://kubernetes-charts.storage.googleapis.com/
+    import-values:
+    - child: grafana
+      parent: grafana
+    - child: prometheus
+      parent: prometheus

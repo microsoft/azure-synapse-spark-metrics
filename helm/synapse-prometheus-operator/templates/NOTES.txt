@@ -1,0 +1,8 @@
+1. The Synapse Prometheus Operator has been installed. Check its status by running:
+   kubectl --namespace {{ template "synapse-prometheus-operator.namespace" . }} get pods
+
+2. Get your '{{ .Values.grafana.adminUser }}' user password by running:
+   kubectl get secret --namespace {{ template "synapse-prometheus-operator.namespace" . }} {{ include "call-nested" (list . "prometheus-operator.grafana" "grafana.fullname") }} -o jsonpath="{.data.admin-password}" | base64 --decode ; echo
+
+3. Get the Grafana Internal/External address:
+   kubectl get svc --namespace {{ template "synapse-prometheus-operator.namespace" . }} {{ include "call-nested" (list . "prometheus-operator.grafana" "grafana.fullname") }}

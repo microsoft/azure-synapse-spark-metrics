@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+
+synapse-prometheus-connector/src/output/
+synapse-prometheus-connector/src/config/config.yaml
+helm/out/
+synapse-prometheus-connector/src/backup/
+helm/synapse-prometheus-operator/charts/*.tgz
