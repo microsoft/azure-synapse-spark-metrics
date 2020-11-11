@@ -26,7 +26,6 @@ def generate_spark_application_scrape_configs(application_list, workspace_name, 
     livy_path_template = f'/livyApi/versions/{api_version}' + '/sparkpools/{spark_pool_name}/sessions/{livy_id}/applications/{application_id}'
     metrics_paths = [
         '/metrics/executors/prometheus',
-        '/metrics/prometheus',
     ]
     static_configs = []
     for app in application_list:
