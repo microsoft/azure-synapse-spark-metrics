@@ -1,30 +1,17 @@
 # coding=utf-8
 
-
-import io
-import json
-import shlex
-import subprocess
-
-from azure.cli.core import get_default_cli
-
-
-def az(command):
-    stdout = io.StringIO()
-    args = shlex.split(command)
-    exit_code = get_default_cli().invoke(args, out_file=stdout)
-    return exit_code, stdout.getvalue()   
+import requests
 
 
 def get_access_token(service_principal_name, service_principal_password, tenant_id, resource_uri):
-    exit_code, stdout = az(f'login --service-principal --username "{service_principal_name}" --password "{service_principal_password}" --tenant "{tenant_id}"')
-    if exit_code != 0:
-        raise Exception('login failed.')
-
-    exit_code, stdout = az(f'account get-access-token --resource {resource_uri}')
-    if exit_code != 0:
-        raise Exception('get access token failed.')
-
-    token_info = json.loads(stdout)
-    bearer_token = token_info['accessToken']
+    url = "https://login.microsoftonline.com/{tenant_id}/oauth2/token".format(tenant_id=tenant_id)
+    payload = {
+        'grant_type': 'client_credentials',
+        'client_id': service_principal_name,
+        'client_secret': service_principal_password,
+        'resource': resource_uri,
+    }
+    response = requests.post(url, data=payload)
+    response.raise_for_status()
+    bearer_token = response.json()['access_token']
     return bearer_token
