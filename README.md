@@ -6,8 +6,6 @@ Synapse Spark metrics monitoring solution.
 
 ## Prerequisites
 
-1. Kubernetes 1.10+
-2. [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 1. [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
 2. [Helm 3.30+](https://github.com/helm/helm/releases)
 3. [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
