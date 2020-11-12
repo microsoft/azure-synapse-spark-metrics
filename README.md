@@ -8,8 +8,9 @@ Synapse Spark metrics monitoring solution.
 
 1. Kubernetes 1.10+
 2. [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
-3. [Helm 3.30+](https://github.com/helm/helm/releases)
-4. [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
+1. [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest)
+2. [Helm 3.30+](https://github.com/helm/helm/releases)
+3. [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/)
 
 Or just use the out-of-box [Azure Cloud Shell](https://shell.azure.com/), which includes all above tools.
 
@@ -48,7 +49,7 @@ Or just use the out-of-box [Azure Cloud Shell](https://shell.azure.com/), which 
     Add synapse-prometheus-operator repo to Helm client
 
     ```bash
-    helm repo add synapse-charts https://synapsehelm.blob.core.windows.net/charts
+    helm repo add synapse-charts https://github.com/microsoft/azure-synapse-spark-metrics/releases/download/helm-chart
     ```
 
     Install by Helm client:
