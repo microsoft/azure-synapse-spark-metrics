@@ -17,7 +17,7 @@ class SynapseConnectorWorkspaceConfig(object):
     workspace_name: str = attrib()
     subscription_id: str = attrib(default='')
     resource_group: str = attrib(default='')
-    synapse_host_template: str = attrib(default='{workspace_name}.dev.azuresynapse.net')
+    synapse_host_suffix: str = attrib(default='dev.azuresynapse.net')
     synapse_api_version: str = attrib(default='2019-11-01-preview')
     resource_uri: str = attrib(default='https://dev.azuresynapse.net')
     service_discovery_output_folder: str = attrib(default='output/')
@@ -27,7 +27,7 @@ class SynapseConnectorWorkspaceConfig(object):
     enable_spark_pools_metadata_metrics: bool = attrib(default=True)
 
     def synapse_host(self):
-        return self.synapse_host_template.format(workspace_name=self.workspace_name)
+        return '{workspace_name}.{suffix}'.format(workspace_name=self.workspace_name, suffix=self.synapse_host_suffix)
 
 
 @attrs(auto_attribs=True)
