@@ -1,3 +1,6 @@
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 FROM python:3.7.9-alpine as base
 
 WORKDIR /app/synapse_connector

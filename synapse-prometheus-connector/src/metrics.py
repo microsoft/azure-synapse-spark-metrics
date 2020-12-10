@@ -1,5 +1,8 @@
 # coding=utf-8
 
+# Copyright (c) Microsoft Corporation.
+# Licensed under the MIT License.
+
 from prometheus_client import Counter, Gauge, Histogram, Summary, Info
 from prometheus_client import start_http_server
 
