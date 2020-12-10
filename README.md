@@ -28,19 +28,32 @@ Or just use the out-of-box [Azure Cloud Shell](https://shell.azure.com/), which 
     ```bash
     az ad sp create-for-rbac --name <service_principal_name>
     ```
-    
-    Get the service princial object id by `"appId"` as following command.
 
-    ```bash
-    az ad sp show --query objectId --id <service_principal_app_id>
+    The result should look like:
+
+    ```json
+    {
+        "appId": "abcdef...",
+        "displayName": "<service_principal_name>",
+        "name": "http://<service_principal_name>",
+        "password": "abc....",
+        "tenant": "<tenant_id>"
+    }
     ```
 
-    And then, grant permission by Synapse Studio (take a few minutes to take effect)
+    Note down the appId, password, and tenant id.
 
-    ```
-    Click Manage (Left Sidebar) -> Access Control -> Add -> Role=Apache Spark admin, User=service principal objectId
-     -> Select User -> Apply
-    ```
+    1. Login to your [Azure Synapse Analytics workspace](https://web.azuresynapse.net/) as Synapse Administrator
+    2. In Synapse Studio, on the left-side pane, select **Manage** > **Access control**
+    3. Click the **Add** button on the upper left to add a role assignment
+    4. For **Scope** choose **Workspace**
+    5. For **Role** choose **Synapse Compute User**
+    6. For **Select user** input your <service_principal_name> and click your service principal
+    7. Click **Apply**
+
+    Wait 3 minutes for permission to take effect.
+
+    ![screenshot-grant-permission-srbac](docs/image/screenshot-grant-permission-srbac.png)
 
 3. Install Synapse Prometheus Operator
 
