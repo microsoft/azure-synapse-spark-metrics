@@ -1,0 +1,28 @@
+apiVersion: v1
+entries:
+  synapse-prometheus-operator:
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2020-11-12T16:14:48.5525935+08:00"
+    dependencies:
+    - import-values:
+      - child: grafana
+        parent: grafana
+      - child: prometheus
+        parent: prometheus
+      name: prometheus-operator
+      repository: https://kubernetes-charts.storage.googleapis.com/
+      version: 9.3.*
+    description: A Helm chart for Synapse monitoring, which including prometheus-operator,
+      synapse-prometheus-connector
+    digest: c93ad370895dd054acd8938d0701178f1b0b5abfd8647a5c0035651efb875674
+    maintainers:
+    - email: kaizho@microsoft.com
+      name: kaizho
+    - email: zhwe@microsoft.com
+      name: zhwe
+    name: synapse-prometheus-operator
+    urls:
+    - https://synapsehelm.blob.core.windows.net/charts/synapse-prometheus-operator-0.1.0.tgz
+    version: 0.1.0
+generated: "2020-11-12T16:14:48.5230496+08:00"
