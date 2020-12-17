@@ -1,4 +1,4 @@
-# Synapse Prometheus Operator
+# Azure Synapse Spark Metrics
 
 ## Introduction
 
