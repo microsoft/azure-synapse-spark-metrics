@@ -47,7 +47,7 @@ Or just use the out-of-box [Azure Cloud Shell](https://shell.azure.com/), which 
     2. In Synapse Studio, on the left-side pane, select **Manage** > **Access control**
     3. Click the **Add** button on the upper left to add a role assignment
     4. For **Scope** choose **Workspace**
-    5. For **Role** choose **Synapse Compute User**
+    5. For **Role** choose **Synapse Compute Operator**
     6. For **Select user** input your <service_principal_name> and click your service principal
     7. Click **Apply**
 
@@ -81,6 +81,8 @@ Or just use the out-of-box [Azure Cloud Shell](https://shell.azure.com/), which 
      - tenant_id: Synapse workspace tenant id.
      - service_principal_name: The service principal name (or known as "appId")
      - service_principal_password: The service principal password you just created.
+
+    For more details, please refer to [config.example.yaml](https://github.com/microsoft/azure-synapse-spark-metrics/blob/main/synapse-prometheus-connector/src/config/config.example.yaml)
 
 4. Open Grafana and enjoy!
 
