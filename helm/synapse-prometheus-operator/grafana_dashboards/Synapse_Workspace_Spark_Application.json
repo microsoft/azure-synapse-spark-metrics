@@ -152,7 +152,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Executor Memory Usage",
+      "title": "Executor Storage Memory",
       "type": "gauge"
     },
     {
@@ -214,7 +214,7 @@
       ],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Driver Memory Usage",
+      "title": "Driver Storage Memory",
       "type": "gauge"
     },
     {
