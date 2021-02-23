@@ -8,6 +8,5 @@ workspaces:
     service_principal_password: "<service_principal_password>"
     synapse_api_version: 2019-11-01-preview
     resource_uri: https://dev.azuresynapse.net
-    service_discovery_output_folder: output/workspace_<YOUR_WORKSPACE_NAME>/
-    token_refresh_interval_sec: 3600
-    spark_application_discovery_interval_sec: 30
+    token_refresh_interval_sec: 1800
+    spark_application_discovery_interval_sec: 10
