@@ -2,7 +2,19 @@
 
 ## Introduction
 
-Synapse Spark metrics monitoring solution.
+This project mainly aims to provide:
+ - **Azure Synapse Apache Spark metrics** monitoring for Azure Synapse Spark applications by leveraging Prometheus, Grafana and Azure APIs.
+ - **Azure Synapse Prometheus connector** for connecting the on-premises Prometheus server to Azure Synapse Analytics workspace metrics API. 
+ - **Grafana dashboards** for synapse spark metrics visualization.
+ - **Helm chart** for Prometheus and Grafana deployment on AKS, including the connector, Prometheus servers and Grafana dashboards for metrics users.
+
+The dataflow:
+
+![Dataflow Chart](docs/image/dataflow.png)
+
+Grafana dashboard screenshot:
+
+![Grafana dashboard](docs/image/screenshot-dashboard-application.png)
 
 ## Prerequisites
 
