@@ -76,7 +76,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "last"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -102,7 +102,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 0,
+          "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -132,7 +132,7 @@
         "orientation": "auto",
         "reduceOptions": {
           "calcs": [
-            "last"
+            "lastNotNull"
           ],
           "fields": "",
           "values": false
@@ -144,7 +144,7 @@
       "targets": [
         {
           "expr": "sum(spark_executor_memoryUsed_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id!=\"driver\", application_id=\"$application_id\"}) by (application_id)\n/\nsum(spark_executor_maxMemory_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id!=\"driver\", application_id=\"$application_id\"}) by (application_id)",
-          "instant": true,
+          "instant": false,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -160,7 +160,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 0,
+          "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "percentage",
@@ -206,7 +206,7 @@
       "targets": [
         {
           "expr": "max(spark_executor_memoryUsed_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id=\"driver\"}) by (application_id)\n/ \nmax(spark_executor_maxMemory_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id=\"driver\"}) by (application_id)",
-          "instant": true,
+          "instant": false,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1938,7 +1938,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1956,5 +1956,5 @@
   "timezone": "browser",
   "title": "Synapse Workspace / Spark Application",
   "uid": "K7Oq5VSGz",
-  "version": 7
+  "version": 1
 }
