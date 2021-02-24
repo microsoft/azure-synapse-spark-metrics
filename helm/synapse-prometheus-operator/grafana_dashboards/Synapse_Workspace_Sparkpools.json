@@ -93,7 +93,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "count(\n  sum(spark_executor_memoryUsed_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id!=\"driver\"})\n  by (spark_pool_name, executor_id, application_id, name, application_name))\nby (spark_pool_name, application_id, name, application_name)",
+          "expr": "count(\n  sum(spark_executor_memoryUsed_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id!=\"driver\"})\n  by (spark_pool_name, executor_id, application_id, name, application_name))",
           "format": "time_series",
           "instant": false,
           "interval": "",
@@ -543,7 +543,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "max_over_time(\r\n  max(spark_executor_totalDuration_seconds_total{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\"})\n  by (workspace_name, spark_pool_name, application_id, name, application_name)[$__range:2m]\r\n)",
+          "expr": "max_over_time(\r\n  max(spark_executor_totalDuration_seconds_total{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\"})\n  by (workspace_name, spark_pool_name, application_id, name, application_name)[$__range:1m]\r\n)",
           "format": "table",
           "instant": true,
           "interval": "",

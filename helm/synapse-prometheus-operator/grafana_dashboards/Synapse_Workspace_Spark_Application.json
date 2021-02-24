@@ -205,7 +205,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "max(spark_executor_memoryUsed_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id=\"driver\"}) by (application_id)\n/ \nmax(spark_executor_maxMemory_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id=\"driver\"}) by (application_id)",
+          "expr": "max(spark_executor_memoryUsed_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id=\"driver\", application_id=\"$application_id\"}) by (application_id)\n/ \nmax(spark_executor_maxMemory_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id=\"driver\", application_id=\"$application_id\"}) by (application_id)",
           "instant": false,
           "interval": "",
           "legendFormat": "",
@@ -779,7 +779,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "max_over_time(\r\n  max(spark_executor_totalDuration_seconds_total{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", application_id=\"$application_id\"})\n  by (spark_pool_name, application_id, name, application_name, executor_id)[$__range:2m]\r\n)",
+          "expr": "max_over_time(\r\n  max(spark_executor_totalDuration_seconds_total{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", application_id=\"$application_id\"})\n  by (spark_pool_name, application_id, name, application_name, executor_id)[$__range:1m]\r\n)",
           "format": "table",
           "instant": true,
           "interval": "",
