@@ -513,7 +513,7 @@
       }
     },
     {
-      "datasource": null,
+      "datasource": "$Datasource",
       "fieldConfig": {
         "defaults": {
           "custom": {
