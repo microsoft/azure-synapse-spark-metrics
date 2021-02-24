@@ -55,6 +55,8 @@ Or just use the out-of-box [Azure Cloud Shell](https://shell.azure.com/), which 
 
     ![screenshot-grant-permission-srbac](docs/image/screenshot-grant-permission-srbac.png)
 
+    > Note: Make sure your service principal has at least a "Reader" role in your Synapse workspace. Go to **Access Control (IAM)** tab of the Azure portal and check the permission settings.
+
 3. Install Synapse Prometheus Operator
 
     Add synapse-prometheus-operator repo to Helm client
