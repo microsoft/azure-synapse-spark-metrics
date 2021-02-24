@@ -304,7 +304,7 @@
       },
       "gridPos": {
         "h": 9,
-        "w": 7,
+        "w": 12,
         "x": 0,
         "y": 7
       },
@@ -332,6 +332,22 @@
           "interval": "",
           "legendFormat": "",
           "refId": "B"
+        },
+        {
+          "expr": "count(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}) by (spark_pool_name)",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "C"
+        },
+        {
+          "expr": "sum(spark_executor_totalCores{workspace_name=\"$WORKSPACE\"}) by (spark_pool_name)",
+          "format": "table",
+          "instant": true,
+          "interval": "",
+          "legendFormat": "",
+          "refId": "D"
         }
       ],
       "timeFrom": null,
@@ -339,39 +355,33 @@
       "title": "Active Spark pools",
       "transformations": [
         {
-          "id": "filterFieldsByName",
+          "id": "seriesToColumns",
           "options": {
-            "include": {
-              "names": [
-                "info",
-                "resource_group",
-                "spark_pool_name",
-                "subscription_id",
-                "workspace_name",
-                "Value #A"
-              ]
-            }
+            "byField": "spark_pool_name"
           }
         },
         {
           "id": "organize",
           "options": {
             "excludeByName": {
+              "Time": true,
               "Value #A": true,
-              "resource_group": true,
-              "subscription_id": true,
+              "Value #B": true,
               "workspace_name": true
             },
             "indexByName": {
-              "Value #A": 4,
-              "info": 5,
-              "resource_group": 0,
-              "spark_pool_name": 1,
-              "subscription_id": 3,
-              "workspace_name": 2
+              "Time": 4,
+              "Value #A": 6,
+              "Value #B": 7,
+              "Value #C": 1,
+              "Value #D": 2,
+              "info": 3,
+              "spark_pool_name": 0,
+              "workspace_name": 5
             },
             "renameByName": {
-              "Value #A": "Applications",
+              "Value #C": "Active Application(s)",
+              "Value #D": "Allocated vCores",
               "info": "Link",
               "spark_pool_name": "Spark pool"
             }
@@ -382,7 +392,7 @@
     },
     {
       "aliasColors": {},
-      "bars": true,
+      "bars": false,
       "dashLength": 10,
       "dashes": false,
       "datasource": "$Datasource",
@@ -411,8 +421,8 @@
       "fillGradient": 0,
       "gridPos": {
         "h": 9,
-        "w": 17,
-        "x": 7,
+        "w": 12,
+        "x": 12,
         "y": 7
       },
       "hiddenSeries": false,
@@ -426,7 +436,7 @@
         "total": false,
         "values": false
       },
-      "lines": false,
+      "lines": true,
       "linewidth": 1,
       "nullPointMode": "null",
       "options": {
