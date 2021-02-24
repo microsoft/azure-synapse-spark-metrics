@@ -95,7 +95,7 @@
         {
           "expr": "count(\n  sum(spark_executor_memoryUsed_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id!=\"driver\"})\n  by (spark_pool_name, executor_id, application_id, name, application_name))\nby (spark_pool_name, application_id, name, application_name)",
           "format": "time_series",
-          "instant": true,
+          "instant": false,
           "interval": "",
           "legendFormat": "app={{application_name}} executor={{executor_id}}",
           "refId": "A"
@@ -111,7 +111,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 0,
+          "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "absolute",
@@ -169,7 +169,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {},
-          "decimals": 0,
+          "decimals": 1,
           "mappings": [],
           "thresholds": {
             "mode": "percentage",
@@ -215,7 +215,7 @@
       "targets": [
         {
           "expr": "max(spark_executor_memoryUsed_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id=\"driver\"}) by (workspace_name, spark_pool_name)\n/ \nmax(spark_executor_maxMemory_bytes{workspace_name=\"$workspace_name\", spark_pool_name=\"$spark_pool_name\", executor_id=\"driver\"}) by (workspace_name, spark_pool_name)",
-          "instant": true,
+          "instant": false,
           "interval": "",
           "legendFormat": "",
           "refId": "A"
@@ -1541,7 +1541,7 @@
     ]
   },
   "time": {
-    "from": "now-30m",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1559,5 +1559,5 @@
   "timezone": "browser",
   "title": "Synapse Workspace / Sparkpools",
   "uid": "M2V_vnHMk",
-  "version": 11
+  "version": 1
 }
