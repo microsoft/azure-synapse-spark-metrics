@@ -92,7 +92,7 @@
       "pluginVersion": "7.0.3",
       "targets": [
         {
-          "expr": "count(count(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}) by (application_id))",
+          "expr": "count(count(synapse_connector_application_info{workspace_name=\"$WORKSPACE\"}) by (application_id)) or vector(0)",
           "format": "time_series",
           "interval": "",
           "legendFormat": "",
