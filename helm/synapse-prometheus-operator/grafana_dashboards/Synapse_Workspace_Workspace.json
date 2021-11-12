@@ -621,6 +621,12 @@
               "spark_version": "Spark Version"
             }
           }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {
+            "byField": "Spark pool"
+          }
         }
       ],
       "type": "table"
