@@ -125,6 +125,18 @@ Remove the Kubernetes cluster.
 az aks delete --name <kubernetes_cluster_name> --resource-group <kubernetes_cluster_rg>
 ```
 
+## Install Helm Chart Locally
+
+```
+helm install spo ./synapse-prometheus-operator --create-namespace --namespace spo \
+    --set synapse.workspaces[0].workspace_name="<workspace_name>" \
+    --set synapse.workspaces[0].tenant_id="<tenant_id>" \
+    --set synapse.workspaces[0].service_principal_name="<service_principal_app_id>" \
+    --set synapse.workspaces[0].service_principal_password="<service_principal_password>" \
+    --set synapse.workspaces[0].subscription_id="<subscription_id>" \
+    --set synapse.workspaces[0].resource_group="<workspace_resource_group_name>"
+```
+
 ## Build Docker Image
 
 ```bash
