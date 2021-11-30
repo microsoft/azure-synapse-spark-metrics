@@ -3,6 +3,29 @@ entries:
   synapse-prometheus-operator:
   - apiVersion: v1
     appVersion: "1.0"
+    created: "2021-11-15T11:21:02.2274873+08:00"
+    dependencies:
+    - import-values:
+      - child: grafana
+        parent: grafana
+      - child: prometheus
+        parent: prometheus
+      name: prometheus-operator
+      repository: https://charts.helm.sh/stable
+      version: 9.3.*
+    description: A Helm chart for Synapse monitoring, which including prometheus-operator, synapse-prometheus-connector
+    digest: 78c507653be704defe8a24810de283980df9d5832fa27079b5f57b8751778244
+    maintainers:
+    - email: kaizho@microsoft.com
+      name: kaizho
+    - email: zhwe@microsoft.com
+      name: zhwe
+    name: synapse-prometheus-operator
+    urls:
+    - https://github.com/microsoft/azure-synapse-spark-metrics/releases/download/helm-chart/synapse-prometheus-operator-0.1.1.tgz
+    version: 0.1.1
+  - apiVersion: v1
+    appVersion: "1.0"
     created: "2021-02-22T13:24:08.9650898+08:00"
     dependencies:
     - import-values:
@@ -22,6 +45,6 @@ entries:
       name: zhwe
     name: synapse-prometheus-operator
     urls:
-    - https://github.com/microsoft/azure-synapse-spark-metrics/releases/download/synapse-prometheus-operator-0.1.0/synapse-prometheus-operator-0.1.0.tgz
+    - https://github.com/microsoft/azure-synapse-spark-metrics/releases/download/helm-chart/synapse-prometheus-operator-0.1.0.tgz
     version: 0.1.0
-generated: "2021-02-22T13:24:08.9390871+08:00"
+generated: "2021-11-15T11:21:02.1894892+08:00"
