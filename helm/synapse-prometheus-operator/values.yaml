@@ -25,7 +25,7 @@ synapse:
 ## Prometheus Operator
 ##
 # https://github.com/helm/charts/blob/master/stable/prometheus-operator/values.yaml
-prometheus-operator:
+kube-prometheus-stack:
   nameOverride: ""
   fullnameOverride: ""
 
